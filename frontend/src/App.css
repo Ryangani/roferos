@@ -476,17 +476,50 @@ main {
   .about-grid,
   .contact-grid,
   .projects-grid,
-  .skills-grid,
   .experience-grid {
     grid-template-columns: 1fr;
   }
 
+  .skills-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .topbar {
     padding: 18px 22px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .nav-links::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
   }
 
   .hero-card {
     order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -495,20 +528,70 @@ main {
     padding: 24px 20px 48px;
   }
 
+  .topbar {
+    padding: 16px 20px;
+  }
+
+  .brand {
+    font-size: 0.9rem;
+  }
+
   .nav-links {
-    justify-content: center;
+    gap: 12px;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+    white-space: nowrap;
   }
 
   .hero-actions {
     flex-direction: column;
   }
 
+  .hero-actions .button {
+    width: 100%;
+    justify-content: center;
+  }
+
   .about-tags {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-grid,
+  .projects-grid {
     grid-template-columns: 1fr;
   }
 
   .project-tags,
   .contact-links {
     justify-content: flex-start;
+  }
+
+  .contact-grid {
+    gap: 32px;
+  }
+
+  .contact-details a {
+    width: 100%;
+  }
+
+  .hero-card {
+    padding: 24px;
+  }
+
+  .profile-photo {
+    width: 140px;
+    height: 140px;
+  }
+
+  .section-panel {
+    padding: 40px 0;
+  }
+
+  .footer-bar {
+    padding: 20px;
+    font-size: 0.85rem;
   }
 }
