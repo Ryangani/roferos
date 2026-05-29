@@ -13,6 +13,9 @@ const skills = [
   'Communication Skills',
   'React.js',
   'Node.js',
+  'MS Office',
+  'Shopify',
+  'E-commerce Platforms',
 ]
 
 const experience = [
