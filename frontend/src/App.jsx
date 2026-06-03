@@ -1,5 +1,4 @@
 import { useMemo, useRef, useState } from 'react'
-import emailjs from '@emailjs/browser'
 import './App.css'
 
 const skills = [
@@ -101,9 +100,7 @@ function App() {
   const [status, setStatus] = useState('')
   const [sending, setSending] = useState(false)
 
-  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
-  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+  const backendUrl = import.meta.env.VITE_BACKEND_URL
 
   const skillsMarkup = useMemo(
     () =>
@@ -140,25 +137,26 @@ function App() {
 
     const formData = new FormData(form.current)
     const data = {
-      from_name: formData.get('user_name'),
-      from_email: formData.get('user_email'),
+      name: formData.get('user_name'),
+      email: formData.get('user_email'),
       subject: formData.get('subject'),
       message: formData.get('message'),
     }
 
     try {
-      const result = await emailjs.send(
-        serviceId,
-        templateId,
-        data,
-        publicKey
-      )
+      const response = await fetch(`${backendUrl}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
 
-      if (result.status === 200) {
+      const result = await response.json()
+
+      if (response.ok && result.success) {
         setStatus('Message sent successfully!')
         event.target.reset()
       } else {
-        setStatus('Failed to send message')
+        setStatus(result.error || 'Failed to send message')
       }
     } catch (error) {
       console.error('Send failed:', error)
@@ -308,8 +306,8 @@ function App() {
                 >
                   Facebook Profile
                 </a>
-                <a className="contact-detail contact-email" href="mailto:ryanroferos2@gmail.com">
-                  ryanroferos2@gmail.com
+                <a className="contact-detail contact-email" href="mailto:ryanroferos.work@gmail.com">
+                  ryanroferos.work@gmail.com
                 </a>
               </div>
             </div>
